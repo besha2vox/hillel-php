@@ -1,6 +1,6 @@
 <?php
 
-function IsСonditionІatisfactory(int $min, int $max): bool
+function IsConditionSatisfactory(int $min, int $max): bool
 {
     if ($min > $max) {
         echo "Min number($min) bigger then max number($max)";
@@ -17,7 +17,7 @@ function IsСonditionІatisfactory(int $min, int $max): bool
 
 function printNumbers(int $min, int $max): void
 {
-    if (!IsСonditionІatisfactory($min, $max)) {
+    if (!IsConditionSatisfactory($min, $max)) {
         return;
     }
 
@@ -49,7 +49,7 @@ function factorial(int $number): void
 
 function printEvenNumbers(int $min, int $max): void
 {
-    if (!IsСonditionІatisfactory($min, $max)) {
+    if (!IsConditionSatisfactory($min, $max)) {
         return;
     }
     while ($min <= $max) {
