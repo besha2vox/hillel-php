@@ -9,26 +9,36 @@ function readLogs(?int $lines_to_count = 1, ?string $fileName = LOG_FILE,): stri
     }
 
     $file = fopen($fileName, "r");
+
     if (!$file) {
         return "Could not open the file!";
+    }
+    if ($lines_to_count <= 0) {
+        $lines_to_count = 1;
     }
 
     $lines = '';
     $line_counter = 0;
 
-    if ($lines_to_count <= 0) {
-        $lines_to_count = 1;
-    }
+    fseek($file, 0, SEEK_END);
 
-    while (!feof($file)) {
-        $line = fgets($file);
-        if ($line_counter < $lines_to_count) {
-            $lines .= $line;
+    $pointer = 0;
+    while (true) {
+        if (!ftell($file) || $line_counter >= $lines_to_count) {
+            break;
+        }
+
+        $char = fread($file, 1);
+        if ($char === '-') {
+            $lines .= trim(fgets($file)) .PHP_EOL;
             $line_counter++;
         }
+
+        fseek($file, $pointer, SEEK_END);
+        $pointer--;
     }
 
     fclose($file);
-
-    return $lines;
+    return trim($lines) . PHP_EOL;
 }
+
