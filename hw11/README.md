@@ -1,6 +1,6 @@
 # Record/Read Logs
 
-### Start whith docker:
+### Start with docker:
 1. Clone the repository;
 2. Open Docker Desktop;
 3. Run command in program dir <code>docker compose up</code>;
