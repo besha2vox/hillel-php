@@ -29,7 +29,8 @@ function readLogs(?int $lines_to_count = 1, ?string $fileName = LOG_FILE,): stri
         }
 
         $char = fread($file, 1);
-        if ($char === '-') {
+
+        if ($char === '~') {
             $lines .= trim(fgets($file)) .PHP_EOL;
             $line_counter++;
         }
