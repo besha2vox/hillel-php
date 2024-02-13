@@ -7,3 +7,5 @@
 ~ [∼] [11/02/2024 00:50:22] [tilda test]
 ~ [commit] [11/02/2024 00:52:34] [fix bug with repeated char]
 ~ [add] [11/02/2024 01:00:19] [readme.md]
+~ [test] [13/02/2024 22:14:13] [class Recorder]
+~ [test] [13/02/2024 22:25:33] [class App]

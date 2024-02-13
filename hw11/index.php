@@ -1,10 +1,12 @@
 <?php
 
 require __DIR__ . '/constants.php';
-require SERVICES_DIR . 'index.php';
+require __DIR__ . '/app.php';
 
 function main(): void
 {
+    $app = new App(new Reader, new Recorder);
+
     $firstLoop = true;
     while (true) {
         if($firstLoop) {
@@ -17,18 +19,19 @@ function main(): void
         $action = trim(fgets(STDIN));
         switch ($action) {
             case  'read':
-                echo "Enter a number of lines to read: ";
-                $number = (int)fgets(STDIN);
-                echo readLogs($number);
+                try {
+                    echo  $app->read();
+                } catch (Exception $error) {
+                    echo $error->getMessage();
+                }
                 break;
 
             case 'write':
-                echo "Enter a message to record: ";
-                $message = trim(fgets(STDIN));
-                echo "Enter a type of log: ";
-                $type = trim(fgets(STDIN));
-                if (!writeLogs($message, $type)) {
-                    echo "The recording failed";
+                try {
+                    $app->write();
+                    echo "The recording was successful!" . PHP_EOL;
+                } catch (Exception $error) {
+                    echo $error->getMessage();
                 }
                 break;
 

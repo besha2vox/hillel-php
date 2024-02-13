@@ -1,45 +1,102 @@
 <?php
 
-function readLogs(?int $lines_to_count = 1, ?string $fileName = LOG_FILE,): string
+class Reader
 {
-    $fileName = LOGS_DIR . $fileName;
+    private string $filePath;
+    private $file;
+    private string $lines;
+    private int $linesQuantity;
+    private int $lineCounter;
 
-    if (!is_readable($fileName)) {
-        return "File with name $fileName not found!" . PHP_EOL;
+    public function __construct(?string $fileName = LOG_FILE)
+    {
+        $this->filePath = LOGS_DIR . $fileName;
+        $this->lines = '';
+        $this->linesQuantity = 1;
+        $this->lineCounter = 0;
     }
 
-    $file = fopen($fileName, "r");
-
-    if (!$file) {
-        return "Could not open the file!";
+    public function main(int $linesQuantity): string
+    {
+        $this->resetLines();
+        $this->reserLineCounter();
+        $this->setFile();
+        $this->setLinesQuantity($linesQuantity);
+        $this->setLines();
+        return $this->getLines();
     }
-    if ($lines_to_count <= 0) {
-        $lines_to_count = 1;
+
+    public function getLines(): string
+    {
+        return $this->lines;
     }
 
-    $lines = '';
-    $line_counter = 0;
+    private function setLines()
+    {
+        fseek($this->file, 0, SEEK_END);
 
-    fseek($file, 0, SEEK_END);
+        $pointer = 0;
+        while (true) {
+            if (!ftell($this->file) || $this->lineCounter >= $this->linesQuantity) {
+                break;
+            }
 
-    $pointer = 0;
-    while (true) {
-        if (!ftell($file) || $line_counter >= $lines_to_count) {
-            break;
+            $char = fread($this->file, 1);
+
+            if ($char === '~') {
+                $this->lines .= trim(fgets($this->file)) .PHP_EOL;
+                $this->incrementLineCounter();
+            }
+
+            fseek($this->file, $pointer, SEEK_END);
+            $pointer--;
+        }
+    }
+
+    private function resetLines()
+    {
+        $this->lines = '';
+    }
+
+
+    private function setLinesQuantity(int $linesQuantity): void
+    {
+        if ($linesQuantity <= 0) {
+            $linesQuantity = 1;
         }
 
-        $char = fread($file, 1);
-
-        if ($char === '~') {
-            $lines .= trim(fgets($file)) .PHP_EOL;
-            $line_counter++;
-        }
-
-        fseek($file, $pointer, SEEK_END);
-        $pointer--;
+        $this->linesQuantity = $linesQuantity;
     }
 
-    fclose($file);
-    return trim($lines) . PHP_EOL;
+
+    private function setFile(): void
+    {
+        if ($this->file) {
+            return;
+        }
+
+        if (!is_readable($this->filePath)) {
+            throw new Exception("File with name $this->filePath not found!" . PHP_EOL);
+        }
+
+        $file = fopen($this->filePath, "r");
+        if (!$file) {
+            throw new Exception("Could not open the file!" . PHP_EOL);
+        }
+
+        $this->file = $file;
+    }
+
+
+    private function incrementLineCounter(): void
+    {
+        $this->lineCounter++;
+    }
+
+    private function reserLineCounter()
+    {
+        $this->lineCounter = 0;
+    }
 }
+
 
