@@ -1,6 +1,7 @@
 <?php
 
-require __DIR__ . '/account.php';
+require __DIR__ . '/Actions.php';
+require __DIR__ . '/Account.php';
 
 
 function main()
@@ -8,10 +9,10 @@ function main()
     try {
         $account = new Account('4342 1234 5344 5142', 12589);
 
-        actionAndLog($account, 'withdraw',1200);
-        actionAndLog($account, 'getBalance');
-        actionAndLog($account, 'replenish',1200);
-        actionAndLog($account, 'getBalance');
+        actionAndLog($account, Actions::WITHDRAW->value,1200);
+        actionAndLog($account, Actions::GET_BALANCE->value);
+        actionAndLog($account, Actions::REPLENISH->value,1200);
+        actionAndLog($account, Actions::GET_BALANCE->value);
     } catch (Exception $error) {
         print $error->getMessage();
     }
