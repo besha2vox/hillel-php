@@ -4,7 +4,8 @@ class Rectangle extends Figure {
     private $length;
     private $width;
 
-    public function __construct($length, $width) {
+    public function __construct(int|float $length, int|float $width)
+    {
         if ($length <= 0 || $width <= 0) {
             throw new Exception('Length and width must be positive numbers.');
         }
@@ -12,11 +13,13 @@ class Rectangle extends Figure {
         $this->width = $width;
     }
 
-    public function area() {
+    public function area(): int|float
+    {
         return $this->length * $this->width;
     }
 
-    public function perimeter() {
+    public function perimeter(): int|float
+    {
         return 2 * ($this->length + $this->width);
     }
 }
