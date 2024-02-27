@@ -1,6 +1,7 @@
 <?php
 
-class Circle extends Figure {
+class Circle extends Figure
+{
     private $radius;
 
     public function __construct(int|float $radius)
