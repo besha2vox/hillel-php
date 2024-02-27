@@ -36,14 +36,14 @@ trait Validator
         $this->checkErrors();
     }
 
-    public function string(mixed $value)
+    public function string($value)
     {
         if (gettype($value) !== 'string') {
             throw new Exception("The type of this field must be a string");
         }
     }
 
-    public function int(mixed $value)
+    public function int($value)
     {
         if (gettype($value) !== 'integer') {
             throw new Exception("The type of this field must be a integer");
