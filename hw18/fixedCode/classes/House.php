@@ -1,7 +1,5 @@
 <?php
 
-namespace classes;
-
 class House
 {
     public bool $door = false;
