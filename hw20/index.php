@@ -20,7 +20,7 @@ $roleRepository = new RoleRepository($connector, $builder);
 try {
     $userRepository->insert(
         ['email', 'name', 'age', 'password', 'gender'],
-        ['test@test.test', 'test', 4, 'password', 'male']
+        ['test2@test.test', 'test', 4, 'password', 'male']
     );
     $userRepository->update(2, ['project_id' => 1, 'role_id' => 3]);
     print_r($userRepository->findById(2));

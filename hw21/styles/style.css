@@ -1,0 +1,49 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Fira Code", monospace;
+}
+
+input {
+    font-family: inherit;
+}
+
+p {
+    text-align: center;
+}
+
+.greetings {
+    text-align: center;
+    font-size: 64px;
+    background-image: linear-gradient(10deg, orange 40%, yellow 55%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(5px 5px 3px #000);
+}
+
+.form {
+    padding-top: 40px;
+    max-width: 800px;
+    width: fit-content;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    row-gap: 20px;
+}
+
+.label {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    padding: 8px;
+    color: red;
+    border: 1px solid red;
+}
